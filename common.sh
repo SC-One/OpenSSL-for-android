@@ -7,12 +7,13 @@ set -x
 export ANDROID_NDK_HOME=$1
 OPENSSL_DIR=openssl-OpenSSL_1_1_1q
 
+
 # Find the toolchain for your build machine
 toolchains_path=$(python toolchains_path.py --ndk ${ANDROID_NDK_HOME})
 
 # Configure the OpenSSL environment, refer to NOTES.ANDROID in OPENSSL_DIR
 # Set compiler clang, instead of gcc by default
-CC=clang
+#CC=clang
 
 # Add toolchains bin directory to PATH
 PATH=$toolchains_path/bin:$PATH
@@ -25,20 +26,22 @@ ANDROID_API=21
 if [ -z "$2" ]
   then
     architecture=android-arm64
+else
+    architecture=$2
 fi
 
-architecture=$2
 
 # Create the make file
 cd ${OPENSSL_DIR}
 ./Configure ${architecture} -D__ANDROID_API__=$ANDROID_API
 
+
 # Build
-make
+make -j$(nproc)
 
 # Copy the outputs
-OUTPUT_INCLUDE=$SCRIPTPATH/output/include
-OUTPUT_LIB=$SCRIPTPATH/output/lib/${architecture}
+OUTPUT_INCLUDE=output/include
+OUTPUT_LIB=output/lib/${architecture}
 mkdir -p $OUTPUT_INCLUDE
 mkdir -p $OUTPUT_LIB
 cp -RL include/openssl $OUTPUT_INCLUDE
@@ -46,3 +49,4 @@ cp libcrypto.so $OUTPUT_LIB
 cp libcrypto.a $OUTPUT_LIB
 cp libssl.so $OUTPUT_LIB
 cp libssl.a $OUTPUT_LIB
+
