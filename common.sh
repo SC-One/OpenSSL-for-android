@@ -25,7 +25,7 @@ PATH=$toolchains_path/bin:$PATH
 ANDROID_API=21
 
 # Set the target architecture
-# Can be android-arm, android-arm64, android-x86, android-x86 etc
+# Can be android-arm, android-arm64, android-x86, etc
 if [ -z "$2" ]
   then
     architecture=android-arm64
