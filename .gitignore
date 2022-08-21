@@ -2,3 +2,7 @@
 *.a
 *.dll
 *.lib
+*.o
+
+#openssl-*/test/*
+#openssl-*/output/*

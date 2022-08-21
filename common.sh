@@ -13,7 +13,7 @@ toolchains_path=$(python toolchains_path.py --ndk ${ANDROID_NDK_HOME})
 
 # Configure the OpenSSL environment, refer to NOTES.ANDROID in OPENSSL_DIR
 # Set compiler clang, instead of gcc by default
-#CC=clang
+CC=clang
 
 # Add toolchains bin directory to PATH
 PATH=$toolchains_path/bin:$PATH
