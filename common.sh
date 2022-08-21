@@ -7,6 +7,9 @@ set -x
 export ANDROID_NDK_HOME=$1
 OPENSSL_DIR=openssl-OpenSSL_1_1_1q
 
+OUTPUT_DIR=output
+
+git clean -f # install git! no time to fix now :/
 
 # Find the toolchain for your build machine
 toolchains_path=$(python toolchains_path.py --ndk ${ANDROID_NDK_HOME})
@@ -40,8 +43,10 @@ cd ${OPENSSL_DIR}
 make -j$(nproc)
 
 # Copy the outputs
-OUTPUT_INCLUDE=output/include
-OUTPUT_LIB=output/lib/${architecture}
+OUTPUT_INCLUDE=${OUTPUT_DIR}/include
+OUTPUT_LIB=${OUTPUT_DIR}/lib/${architecture}
+rm -rf $OUTPUT_INCLUDE
+rm -rf $OUTPUT_LIB
 mkdir -p $OUTPUT_INCLUDE
 mkdir -p $OUTPUT_LIB
 cp -RL include/openssl $OUTPUT_INCLUDE
@@ -49,4 +54,3 @@ cp libcrypto.so $OUTPUT_LIB
 cp libcrypto.a $OUTPUT_LIB
 cp libssl.so $OUTPUT_LIB
 cp libssl.a $OUTPUT_LIB
-
