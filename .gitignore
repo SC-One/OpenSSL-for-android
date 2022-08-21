@@ -1,8 +1,8 @@
-*.so
-*.a
-*.dll
-*.lib
-*.o
+#*.so
+#*.a
+#*.dll
+#*.lib
+#*.o
 
 #openssl-*/test/*
 #openssl-*/output/*
