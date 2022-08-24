@@ -5,6 +5,7 @@ set -x
 # Set directory
 #SCRIPTPATH=`realpath .` #MacOS
 export ANDROID_NDK_HOME=$1
+SingleOption=$3
 OPENSSL_DIR=openssl-OpenSSL_1_1_1q
 
 OUTPUT_DIR=output
@@ -36,7 +37,7 @@ fi
 
 # Create the make file
 cd ${OPENSSL_DIR}
-./Configure ${architecture} -D__ANDROID_API__=$ANDROID_API
+./Configure ${architecture} -D__ANDROID_API__=$ANDROID_API $SingleOption
 
 
 # Build
